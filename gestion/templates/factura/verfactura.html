@@ -1,0 +1,65 @@
+{% extends 'partials/admin-body.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block contenido %}
+<div class="cuerpo-admin">
+  <div class=" contenido-cuerpo borde d-flex  ">
+    <h1  class="">Datos de la factura  {{factura.id}}</h1>
+
+    <div class=" text-dark bg-light column ver-d datos ">
+      <div class="tabla-ver bg-ver w-tableVer  mx-auto">
+        <div class="contenedorTabla  tablaProducto  ">
+          <table class=" table results  centrar font-2em tablaVer" >
+            <thead class="borderT  ">
+              <tr >
+                  <th scope="col"  >Fecha :</th>
+                  <th scope="col" >{{factura.fecha}}</th>
+              </tr>
+              <tr>
+                <th scope="col"  >Tipo de usuario :</th>
+                <th scope="col" >{{factura.rol}}</th>
+              </tr>
+              <tr>
+                <th scope="col"  >Usuario :</th>
+                <th scope="col">{{factura.usuario}} </th>
+              </tr>
+              <tr>
+                <th scope="col"  >Tipo factura :</th>
+                <th scope="col">{{factura.tipofactura}}</th>
+              </tr>
+            </table>
+          </div>      
+        </div>
+        <div  
+
+              <tr class="text-white">
+                <th scope="col  " >Producto</th>
+                <th scope="col ">Cantidad</th>
+                <th scope="col">Valor unidad</th>
+                <th scope="col">Total producto</th>
+              </tr>
+            </thead>
+            {% for detalle in detalles %}
+            {% if  detalle.estado == "Abierta"  %}
+            <tr> 
+              <td class="dtr-control sorting_1">{{detalle.elemento.nombre}}</td>
+              <td class="dt-body-center dtr-hidden">{{detalle.cantidad}}</td>
+              <td class="dt-body-right dtr-hidden">{{detalle.elemento.precio}}</td>
+              <td class="dt-body-right dtr-hidden">{{detalle.total}}</td>
+                {% endif %}
+            </tr>    
+            {% endfor %}
+          </tbody>
+          </table>
+          <div class="row ml-5">
+              <div class="col col-md-3 card mt-1">
+                  <div class="card-body">
+                      <h1>Total: <span class="text-success fs-2 " id="total_campos" ></span></h1>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>  
+{% endblock contenido %}
